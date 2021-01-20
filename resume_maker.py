@@ -1,5 +1,9 @@
 import tkinter as tk
 from tkinter import ttk
+import ttkcalendar
+import tkSimpleDialog
+from my_CalendarDialog import CalendarDialog 
+
 win = tk.Tk()
 win.title('Resume Maker')
 win.iconbitmap('pyc.ico')
@@ -45,11 +49,23 @@ ttk.Label(address_label, text='Home Address:').grid(column=0, row=1)
 home_address= tk.StringVar()
 home_address_entered= ttk.Entry(address_label, width=20, textvariable= home_address)
 home_address_entered.grid(column=1, row=1, padx=8, pady=4)
-#city
-ttk.Label(address_label, text='City').grid(column=2, row=1)
-city= tk.StringVar()
-city_entered= ttk.Entry(address_label, width=20, textvariable= city)
-city_entered.grid(column=3, row=1, padx=8, pady=4)
+#country
+ttk.Label(address_label, text='Country:').grid(column=2, row=1)
+country= tk.StringVar()
+#country_entered= ttk.Entry(address_label, width=20, textvariable= country)
+#country_entered.grid(column=3, row=1, padx=8, pady=4)
+
+combo = ttk.Combobox(address_label, width=12, textvariable=country)
+combo['values'] = (1, 2, 4, 42, 100)
+combo.grid(column=3, row=1, padx=8, pady=4)
+#combo.current([1])       
+combo.set(0)
+#combo.bind('<<ComboboxSelected>>', self.callBacks._combo)
+# Combobox callback 
+def _combo(self, val=0):
+      value = self.oop.combo.get()
+      self.oop.scr.insert(tk.INSERT, value + '\n')
+
 #State
 ttk.Label(address_label, text='State:').grid(column=4, row=1)
 state= tk.StringVar()
@@ -110,6 +126,14 @@ grade_scale_entered.grid(column=3, row=0, padx=8, pady=4)
 Dates_label=ttk.Labelframe(e_background, text=' Dates ')
 Dates_label.grid(column=0, row=2, sticky='W', columnspan=4, padx=8, pady=4)
 # Year of entry
+def getdate():
+    cd = CalendarDialog(Dates_label)
+    result = cd.result
+    selected_date.set(result)
+
+selected_date = tk.StringVar()
+tk.Entry(Dates_label, textvariable=selected_date).pack(side=tk.LEFT)
+tk.Button(Dates_label, text="Choose a date", command=getdate).pack(side=tk.LEFT)
 
 # Year of graduation
 
@@ -131,16 +155,16 @@ school_name_entered.grid(column=3, row=2, padx=8, pady=4)
 # location labelframe
 location_label=ttk.Labelframe(w_experience, text=' Location ')
 location_label.grid(column=0, sticky='W', columnspan=4, padx=8, pady=4)
+# Company address
+ttk.Label(location_label, text='company Address:').grid(column=0, row=0)
+company_address= tk.StringVar()
+company_address_entered= ttk.Entry(location_label, width=20, textvariable= company_address)
+company_address_entered.grid(column=1, row=0, padx=8, pady=4)
 # country
-ttk.Label(location_label, text='Country:').grid(column=0, row=0)
+ttk.Label(location_label, text='Country:').grid(column=2, row=0)
 country= tk.StringVar()
 country_entered= ttk.Entry(location_label, width=20, textvariable= country)
-country_entered.grid(column=1, row=0, padx=8, pady=4)
-# city
-ttk.Label(location_label, text='City:').grid(column=2, row=0)
-city= tk.StringVar()
-city_entered= ttk.Entry(location_label, width=20, textvariable= city)
-city_entered.grid(column=3, row=0, padx=8, pady=4)
+country_entered.grid(column=3, row=0, padx=8, pady=4)
 # state
 ttk.Label(location_label, text='State:').grid(column=4, row=0)
 state= tk.StringVar()
@@ -174,10 +198,5 @@ ttk.Label(skills_label, text='Company acquired:').grid(column=5, row=0, pady=16)
 company_acquired= tk.StringVar()
 company_acquired_entered= ttk.Entry(skills_label, width=20, textvariable= company_acquired)
 company_acquired_entered.grid(column=6, row=0, padx=8, pady=16)
-
-
-
-
-
 
 win.mainloop()
