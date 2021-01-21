@@ -1,7 +1,5 @@
 import tkinter as tk
 from tkinter import ttk
-import ttkcalendar
-import tkSimpleDialog
 from my_CalendarDialog import CalendarDialog 
 
 win = tk.Tk()
@@ -132,6 +130,7 @@ def getdate():
     selected_date.set(result)
 
 selected_date = tk.StringVar()
+selected_date.set('None')
 tk.Entry(Dates_label, textvariable=selected_date).pack(side=tk.LEFT)
 tk.Button(Dates_label, text="Choose a date", command=getdate).pack(side=tk.LEFT)
 

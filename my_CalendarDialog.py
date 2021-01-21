@@ -1,9 +1,14 @@
+"""my_CalendarDialog creates calender and provide methods of dialoging with the calender.
+The Dialog module contains methods that as the name implies helps to dialog with the calender.
+The CalenderDialog module contains methods that binds the Dialog module methods to the calendar to create a dialog box that displays a calendar and returns the selected date"""
+
 from tkinter import *
 from tkinter.ttk import *
 from tkcalendar import Calendar
 
 class Dialog(Toplevel):
-    """Sourced from http://effbot.org/tkinterbook/tkinter-dialog-windows.htm"""
+    """The Dialog module contains methods that as the name implies helps to dialog with the calender.
+    Sourced from http://effbot.org/tkinterbook/tkinter-dialog-windows.htm"""
     def __init__(self, parent, title = None):
 
         Toplevel.__init__(self, parent)
@@ -98,10 +103,32 @@ class Dialog(Toplevel):
 
 
 class CalendarDialog(Dialog):
-    """Dialog box that displays a calendar and returns the selected date"""
+    """The CalenderDialog module contains methods that binds the Dialog module methods to the calendar to create a Dialog box that displays a calendar and returns the selected date"""
     def body(self, master):
         self.calendar = Calendar(master, selectmode='day')
         self.calendar.pack()
 
     def apply(self):
         self.result = self.calendar.get_date()
+
+
+
+def test():
+    import tkinter as tk
+    root = tk.Tk()
+    root.wm_title("Demo")
+    
+    def getdate():
+        cd = CalendarDialog(root)
+        result = cd.result
+        selected_date.set(result)
+        
+    selected_date = tk.StringVar()
+    selected_date.set('None')
+    tk.Entry(root, textvariable=selected_date).pack(side=tk.LEFT)
+    tk.Button(root, text="Choose a date", command=getdate).pack(side=tk.LEFT)
+  
+    root.mainloop()
+
+if __name__ == "__main__":
+    test()
