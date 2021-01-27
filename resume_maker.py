@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 from my_CalendarDialog import CalendarDialog 
+import location_helper as lh
 
 win = tk.Tk()
 win.title('Resume Maker')
@@ -49,26 +50,21 @@ home_address_entered= ttk.Entry(address_label, width=20, textvariable= home_addr
 home_address_entered.grid(column=1, row=1, padx=8, pady=4)
 #country
 ttk.Label(address_label, text='Country:').grid(column=2, row=1)
-country= tk.StringVar()
-#country_entered= ttk.Entry(address_label, width=20, textvariable= country)
-#country_entered.grid(column=3, row=1, padx=8, pady=4)
+country = ttk.Combobox(address_label, width=12, values = lh.countries)
+country.current(0)
+country.grid(column=3, row=1, padx=8, pady=4) 
 
-combo = ttk.Combobox(address_label, width=12, textvariable=country)
-combo['values'] = (1, 2, 4, 42, 100)
-combo.grid(column=3, row=1, padx=8, pady=4)
-#combo.current([1])       
-combo.set(0)
-#combo.bind('<<ComboboxSelected>>', self.callBacks._combo)
-# Combobox callback 
-def _combo(self, val=0):
-      value = self.oop.combo.get()
-      self.oop.scr.insert(tk.INSERT, value + '\n')
+# country callback 
+def onchange(e):
+      state.config(value= lh.country_states[country.get()])
+      state.current(0)     
+# bind country to state
+country.bind("<<ComboboxSelected>>", onchange)
 
 #State
 ttk.Label(address_label, text='State:').grid(column=4, row=1)
-state= tk.StringVar()
-state_entered= ttk.Entry(address_label, width=20, textvariable= state)
-state_entered.grid(column=5, row=1, padx=8, pady=4)
+state = ttk.Combobox(address_label, width=12, values=[])
+state.grid(column=5, row=1, padx=8, pady=4)      
 
 # Contacts label frame
 contacts_label=ttk.Labelframe(p_info, text=' Contacts ')
@@ -159,16 +155,23 @@ ttk.Label(location_label, text='company Address:').grid(column=0, row=0)
 company_address= tk.StringVar()
 company_address_entered= ttk.Entry(location_label, width=20, textvariable= company_address)
 company_address_entered.grid(column=1, row=0, padx=8, pady=4)
-# country
+# company country
 ttk.Label(location_label, text='Country:').grid(column=2, row=0)
-country= tk.StringVar()
-country_entered= ttk.Entry(location_label, width=20, textvariable= country)
-country_entered.grid(column=3, row=0, padx=8, pady=4)
-# state
+company_country= ttk.Combobox(location_label, width=12, values = lh.countries)
+company_country.current(0)
+company_country.grid(column=3, row=0, padx=8, pady=4)
+
+# company country callback 
+def onchange(e):
+      company_state.config(value= lh.country_states[company_country.get()])
+      company_state.current(0)     
+# bind country to state
+company_country.bind("<<ComboboxSelected>>", onchange)
+
+# company state
 ttk.Label(location_label, text='State:').grid(column=4, row=0)
-state= tk.StringVar()
-state_entered= ttk.Entry(location_label, width=20, textvariable= state)
-state_entered.grid(column=5, row=0, padx=8, pady=4)
+company_state= ttk.Combobox(location_label, width=12, values=[])
+company_state.grid(column=5, row=0, padx=8, pady=4)
 # Dates labelframe
 Dates_label=ttk.Labelframe(w_experience, text=' Dates ')
 Dates_label.grid(column=0, sticky='W', columnspan=4, padx=8, pady=4)
