@@ -1,11 +1,12 @@
 import tkinter as tk
-from tkinter import ttk
+from tkinter import ttk, scrolledtext, Menu, Spinbox, filedialog as fd, messagebox as mBox 
 from my_CalendarDialog import CalendarDialog 
 import location_helper as lh
 
 win = tk.Tk()
 win.title('Resume Maker')
 win.iconbitmap('pyc.ico')
+
 
 tabControl= ttk.Notebook(win)
 p_info= ttk.Frame(tabControl)
@@ -18,6 +19,26 @@ skills= ttk.Frame(tabControl)
 tabControl.add(skills, text='Skills')
 tabControl.pack(expand=5, fill='both', padx=10, pady=6)
 
+# Creating a Menu Bar ==========================================================
+def _quit():
+      win.quit()
+      win.destroy()
+      exit() 
+
+menuBar = Menu(p_info)
+win.config(menu=menuBar)
+        
+# Add menu items
+fileMenu = Menu(menuBar, tearoff=0)
+fileMenu.add_command(label='New')
+fileMenu.add_separator()
+fileMenu.add_command(label='Exit', command=_quit)
+menuBar.add_cascade(label='File', menu=fileMenu)
+        
+# Add another Menu to the Menu Bar and an item
+helpMenu = Menu(menuBar, tearoff=0)
+helpMenu.add_command(label='About')
+menuBar.add_cascade(label='Help', menu=helpMenu)
 ###################################################################################
 # personal information
 
@@ -120,17 +141,26 @@ grade_scale_entered.grid(column=3, row=0, padx=8, pady=4)
 Dates_label=ttk.Labelframe(e_background, text=' Dates ')
 Dates_label.grid(column=0, row=2, sticky='W', columnspan=4, padx=8, pady=4)
 # Year of entry
-def getdate():
+def getentdate():
     cd = CalendarDialog(Dates_label)
     result = cd.result
-    selected_date.set(result)
+    entry_date.set(result)
 
-selected_date = tk.StringVar()
-selected_date.set('None')
-tk.Entry(Dates_label, textvariable=selected_date).pack(side=tk.LEFT)
-tk.Button(Dates_label, text="Choose a date", command=getdate).pack(side=tk.LEFT)
+entry_date = tk.StringVar()
+entry_date.set('None')
+tk.Entry(Dates_label, textvariable=entry_date).pack(side=tk.LEFT, padx=8, pady=4)
+tk.Button(Dates_label, text="Choose entry date", command=getentdate).pack(side=tk.LEFT, padx=8, pady=4)
 
 # Year of graduation
+def getgraddate():
+    cd = CalendarDialog(Dates_label)
+    result = cd.result
+    graduation_date.set(result)
+
+graduation_date = tk.StringVar()
+graduation_date.set('None')
+tk.Entry(Dates_label, textvariable=graduation_date).pack(side=tk.LEFT, padx=8, pady=4)
+tk.Button(Dates_label, text="Choose graduation date", command=getgraddate).pack(side=tk.LEFT, padx=8, pady=4)
 
 ###################################################################################
 # Work experience
@@ -173,12 +203,30 @@ ttk.Label(location_label, text='State:').grid(column=4, row=0)
 company_state= ttk.Combobox(location_label, width=12, values=[])
 company_state.grid(column=5, row=0, padx=8, pady=4)
 # Dates labelframe
-Dates_label=ttk.Labelframe(w_experience, text=' Dates ')
-Dates_label.grid(column=0, sticky='W', columnspan=4, padx=8, pady=4)
+WDates_label=ttk.Labelframe(w_experience, text=' Dates ')
+WDates_label.grid(column=0, sticky='W', columnspan=4, padx=8, pady=4)
+
 # Year of entry
+def getWentdate():
+    cd = CalendarDialog(WDates_label)
+    result = cd.result
+    Wentry_date.set(result)
+
+Wentry_date = tk.StringVar()
+Wentry_date.set('None')
+tk.Entry(WDates_label, textvariable=Wentry_date).pack(side=tk.LEFT, padx=8, pady=4)
+tk.Button(WDates_label, text="Choose entry date", command=getWentdate).pack(side=tk.LEFT, padx=8, pady=4)
 
 # Year of leaving
+def getleavedate():
+    cd = CalendarDialog(WDates_label)
+    result = cd.result
+    leaving_date.set(result)
 
+leaving_date = tk.StringVar()
+leaving_date.set('None')
+tk.Entry(WDates_label, textvariable=leaving_date).pack(side=tk.LEFT, padx=8, pady=4)
+tk.Button(WDates_label, text="Choose leaving date", command=getleavedate).pack(side=tk.LEFT, padx=8, pady=4)
 
 ###################################################################################
 # skills
