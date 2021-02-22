@@ -293,7 +293,7 @@ ttk.Label(preview_label, text='Company acquired:').pack(expand=5, fill='both', p
 
 
 # Download button
-tk.Button(win, text="Download Resume", font='Helvetica', bg='black', fg='green').pack(expand=5, fill='both', padx=4, pady=2)
+tk.Button(win, text="Download Resume", font=('Helvetica', 16, 'bold'), bg='black', fg='green').pack(expand=5, fill='both', padx=4, pady=2)
 
 
 
