@@ -2,8 +2,8 @@
 The Dialog module contains methods that as the name implies helps to dialog with the calender.
 The CalenderDialog module contains methods that binds the Dialog module methods to the calendar to create a dialog box that displays a calendar and returns the selected date"""
 
-from tkinter import *
-from tkinter.ttk import *
+from tkinter import Toplevel, Button, ACTIVE, LEFT
+from tkinter.ttk import Frame, Entry
 from tkcalendar import Calendar
 
 class Dialog(Toplevel):
