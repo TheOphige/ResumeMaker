@@ -100,9 +100,9 @@ def onchange(e):
 country.bind("<<ComboboxSelected>>", onchange)
 
 #State
-ttk.Label(address_label, text='State:').grid(column=4, row=1, padx=8, pady=4)
+ttk.Label(address_label, text='State:').place(x=490,y=0)
 state = ttk.Combobox(address_label, width=12, values=[])
-state.grid(column=5, row=1, padx=8, pady=4)      
+state.place(x=540,y=0)      
 
 # Contacts label frame -----------------------------------------------------------------
 contacts_label=ttk.Labelframe(p_info, text=' Contacts ')
@@ -153,10 +153,10 @@ grade= tk.StringVar()
 grade_entered= ttk.Entry(grade_label, width=20, textvariable= grade)
 grade_entered.grid(column=1, row=0, padx=8, pady=4)
 # Grade scale
-ttk.Label(grade_label, text='Grade scale:').grid(column=2, row=0, padx=8, pady=4)
+ttk.Label(grade_label, text='Grade scale:').place(x=360,y=2)
 grade_scale= tk.StringVar()
 grade_scale_entered= ttk.Entry(grade_label, width=20, textvariable=grade_scale)
-grade_scale_entered.grid(column=3, row=0, padx=8, pady=4)
+grade_scale_entered.place(x=450,y=2)
 
 # Dates labelframe -----------------------------------------------------------------
 Dates_label=ttk.Labelframe(e_background, text=' Dates ')
@@ -167,12 +167,13 @@ def getentdate():
     result = cd.result
     entry_date.set(result)
 
-entry_date = tk.StringVar()
-entry_date.set('None')
-tk.Entry(Dates_label, textvariable=entry_date).pack(side=tk.LEFT, padx=8, pady=4)
 entry_date_button= tk.Button(Dates_label, text="Choose entry date", command=getentdate)
 entry_date_button.pack(side=tk.LEFT, padx=8, pady=4)
 tt.create_ToolTip(entry_date_button, 'This is a Date Picker.')
+entry_date = tk.StringVar()
+entry_date.set('None')
+tk.Entry(Dates_label, textvariable=entry_date).pack(side=tk.LEFT, padx=8, pady=4)
+
 
 # Year of graduation
 def getgraddate():
@@ -180,10 +181,11 @@ def getgraddate():
     result = cd.result
     graduation_date.set(result)
 
+tk.Button(Dates_label, text="Choose graduation date", command=getgraddate).pack(side=tk.LEFT, padx=8, pady=4)
 graduation_date = tk.StringVar()
 graduation_date.set('None')
 tk.Entry(Dates_label, textvariable=graduation_date).pack(side=tk.LEFT, padx=8, pady=4)
-tk.Button(Dates_label, text="Choose graduation date", command=getgraddate).pack(side=tk.LEFT, padx=8, pady=4)
+
 
 # preview Education background
 e_background_preview= tk.Button(e_background, text="Preview")
@@ -241,10 +243,11 @@ def getWentdate():
     result = cd.result
     Wentry_date.set(result)
 
+tk.Button(WDates_label, text="Choose entry date", command=getWentdate).pack(side=tk.LEFT, padx=8, pady=4)
 Wentry_date = tk.StringVar()
 Wentry_date.set('None')
 tk.Entry(WDates_label, textvariable=Wentry_date).pack(side=tk.LEFT, padx=8, pady=4)
-tk.Button(WDates_label, text="Choose entry date", command=getWentdate).pack(side=tk.LEFT, padx=8, pady=4)
+
 
 # Year of leaving
 def getleavedate():
@@ -252,10 +255,11 @@ def getleavedate():
     result = cd.result
     leaving_date.set(result)
 
+tk.Button(WDates_label, text="Choose leaving date", command=getleavedate).pack(side=tk.LEFT, padx=8, pady=4)
 leaving_date = tk.StringVar()
 leaving_date.set('None')
 tk.Entry(WDates_label, textvariable=leaving_date).pack(side=tk.LEFT, padx=8, pady=4)
-tk.Button(WDates_label, text="Choose leaving date", command=getleavedate).pack(side=tk.LEFT, padx=8, pady=4)
+
 
 # preview work experience
 workXP_preview= tk.Button(w_experience, text="Preview")
